@@ -1,0 +1,30 @@
+{% load wagtailcore_tags navigation_tags %}
+{# Load wagtailuserbar: #}
+{% load wagtailcore_tags navigation_tags wagtailuserbar %}
+
+<header>
+    {# Add this: #}
+  <a href="#main" class="skip-link">Skip to content</a>
+  
+    {% get_site_root as site_root %}
+    <nav>
+        <p>
+        <a href="{% pageurl site_root %}">Home</a> |
+        {% for menuitem in site_root.get_children.live.in_menu %}
+          
+            {# Add the child pages of your HomePage that have their `Show in menu` checked #}
+            <a href="{% pageurl menuitem %}">{{ menuitem.title }}</a>{% if not forloop.last %} | {% endif %}
+
+        {% endfor %}
+        <a href="http://127.0.0.1:8000/resume/">Resume</a>|
+        <a href="http://127.0.0.1:8000/contact/">Contact</a>
+        |<a href="http://127.0.0.1:8000/blog/">Blog</a>
+        {# Display your search by adding this: #}
+          | <a href="/search/">Search</a>
+        </p>
+        </p>
+    </nav>
+
+    {# Add wagtailuserbar: #}
+    {% wagtailuserbar "top-right" %}
+</header>
